@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="global.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <b>DemoSite</b>
+            <ul>
+                <li><a href="/index.html">Home</a></li>
+                <li><a href="/viewall.html">Products</a></li>
+                <li><a href="/">Category</a></li>
+                <li><a href="/">New Arrivals</a></li>
+            </ul>
+            <div>
+                <button type="button" class="lgbtn">Login</button> /
+                <button type="button" class="spbtn">Sign up</button>
+            </div>
+        </nav>
+    </header>
+    <main class="main">
+        <!-- things -->
+        <div class="productcontainer" id="product-details">
+
+        </div>
+    </main>
+    <footer class="border footer">
+        <div>
+            <b>Company</b>
+            <ul>
+                <li>about us</li>
+                <li>contact us</li>
+            </ul>
+        </div>
+        <div>
+            <b>Customer Service</b>
+            <ul>
+                <li>Return and Refund policy</li>
+                <li>shipping info</li>
+                <li>Report suspicious activity</li>
+            </ul>
+        </div>
+        <div>
+            <b>Help</b>
+            <ul>
+                <li>Support center & FAQ</li>
+                <li>Safety center</li>
+                <li>Sitemap</li>
+                <li>Partners</li>
+            </ul>
+        </div>
+        <div>
+            <b>Social Media Platforms</b>
+            <ul>
+                <li>insta</li>
+                <li>twitter</li>
+                <li>youtube</li>
+            </ul>
+        </div>
+    </footer>
+    <script>
+        // Get the product ID from the URL
+        const params = new URLSearchParams(window.location.search);
+        const productId = params.get("id");
+
+        async function loadProductDetail(id) {
+            try {
+                const res = await fetch(`https://dummyjson.com/products/${id}`);
+                if (!res.ok) throw new Error("Product not found");
+
+                const product = await res.json();
+
+                const container = document.getElementById("product-details");
+                container.innerHTML = `
+                    <div class="flex flex-col md:flex-row gap-5 items-start p-5 border rounded-lg shadow-md w-full">
+                        <div class="w-full md:w-1/2">
+                            <img src="${product.thumbnail}" alt="${product.title}" class="w-full rounded-lg shadow">
+                        </div>
+                        <div class="w-full md:w-1/2 space-y-4">
+                            <h2 class="text-2xl font-bold text-green-800">${product.title}</h2>
+                            <p class="text-gray-700">${product.description}</p>
+                            <p class="text-lg font-semibold text-green-700">Brand: ${product.brand}</p>
+                            <p class="text-lg font-semibold text-red-600">Price: $${product.price}</p>
+                            <p class="text-md text-yellow-500">Rating: ${product.rating} ⭐</p>
+                            <p class="text-md text-blue-600">Stock: ${product.stock}</p>
+                            <button class="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-800">Add to Cart</button>
+                        </div>
+                    </div>
+                `;
+            } catch (err) {
+                document.getElementById("product-details").innerHTML = `
+                    <div class="text-red-500 text-center font-semibold">
+                        Product not found or failed to load.
+                    </div>
+                `;
+            }
+        }
+
+        if (productId) {
+            loadProductDetail(productId);
+        } else {
+            document.getElementById("product-details").innerHTML = `
+                <div class="text-red-500 text-center font-semibold">
+                    No product ID provided in URL.
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

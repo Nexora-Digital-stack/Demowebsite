@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="global.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <b>DemoSite</b>
+            <ul>
+                <li><a href="/index.html">Home</a></li>
+                <li><a href="/viewall.html">Products</a></li>
+                <li><a href="/">Category</a></li>
+                <li><a href="/">New Arrivals</a></li>
+            </ul>
+            <div>
+                <button type="button" class="lgbtn">Login</button> /
+                <button type="button" class="spbtn">Sign up</button>
+            </div>
+        </nav>
+    </header>
+    <main class="main">
+        <!-- things -->
+        <div class="productcontainer" id="product-list">
+
+        </div>
+    </main>
+    <footer class="border footer">
+        <div>
+            <b>Company</b>
+            <ul>
+                <li>about us</li>
+                <li>contact us</li>
+            </ul>
+        </div>
+        <div>
+            <b>Customer Service</b>
+            <ul>
+                <li>Return and Refund policy</li>
+                <li>shipping info</li>
+                <li>Report suspicious activity</li>
+            </ul>
+        </div>
+        <div>
+            <b>Help</b>
+            <ul>
+                <li>Support center & FAQ</li>
+                <li>Safety center</li>
+                <li>Sitemap</li>
+                <li>Partners</li>
+            </ul>
+        </div>
+        <div>
+            <b>Social Media Platforms</b>
+            <ul>
+                <li>insta</li>
+                <li>twitter</li>
+                <li>youtube</li>
+            </ul>
+        </div>
+    </footer>
+    <script>
+        async function loadProducts() {
+            const data = await fetch('https://dummyjson.com/products')
+                .then(res => res.json());
+
+            const container = document.getElementById('product-list');
+
+            data.products.forEach(product => {
+                console.log(product);
+                const productDiv = document.createElement('div');
+                productDiv.className = 'item';
+
+                productDiv.innerHTML = `
+                <div class='image'><img src="${product.thumbnail}" alt="${product.title}"></div>
+                <div class=''>
+                    <span class='title' title='${product.title}'><a href='/productdetails.html?id=${product.id}'>${product.title}</span>
+                    <span class='price'>$${product.price}</span>
+                    </div>
+                    `;
+                    // <span class='rating'>${product.rating}</span>
+
+                container.appendChild(productDiv);
+            });
+        }
+        loadProducts();
+    </script>
+</body>
+</html>
