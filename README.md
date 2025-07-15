@@ -1,7 +1,7 @@
 # Demo E-Commerce Website (Frontend Only)
 
 This is a **demo e-commerce website** built using HTML, Tailwind CSS, and JavaScript.  
-⚠️ **Note:** This website is purely for demonstration purposes and **does not** include any backend functionality or real transactions.
+**Note:** This website is purely for demonstration purposes and **does not** include any backend functionality or real transactions.
 
 ---
 
@@ -67,4 +67,5 @@ It is ideal for portfolio display or practicing frontend design patterns.
 ---
 
 ## Author
-made by [Udit Saxena](https://github.com/UditSax3na/)
+Made by [Nexora Digital](https://nexora-digital.odoo.com)
+- Co founder and developer [Udit Saxena](https://github.com/UditSax3na/)
